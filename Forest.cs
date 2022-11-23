@@ -7,7 +7,9 @@ namespace Survivor
         public Forest(int moveCost, int spawnRange)
         {
             // FIXME: this constructor should call parent constructor with multiple parameters using base(a, b, ...)
-            throw new NotImplementedException();
+            base.MoveCost = moveCost;
+            base.SpawnRange = spawnRange;
+            
         }
         
         public override string ToString()

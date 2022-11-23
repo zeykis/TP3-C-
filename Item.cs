@@ -10,7 +10,9 @@ namespace Survivor
         
         protected Item(int expiry, int energyAmount, bool isEdible)
         {
-            throw new NotImplementedException();
+            Expiry = expiry;
+            EnergyAmount = energyAmount;
+            IsEdible = isEdible;
         }
         
         protected Item()
@@ -22,17 +24,17 @@ namespace Survivor
         
         public int GetEnergyAmount()
         {
-            throw new NotImplementedException();
+            return EnergyAmount;
         }
         
         public int GetExpiry()
         {
-            throw new NotImplementedException();
+            return Expiry;
         }
         
         public bool GetIsEdible()
         {
-            throw new NotImplementedException();
+            return IsEdible;
         }
     }
 }

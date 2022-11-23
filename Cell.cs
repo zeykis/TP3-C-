@@ -10,7 +10,9 @@ namespace Survivor
 
         protected Cell(int moveCost, int spawnRange)
         {
-            throw new NotImplementedException();
+            MoveCost = moveCost;
+            SpawnRange = spawnRange;
+            Content = null;
         }
 
         protected Cell()
@@ -20,32 +22,39 @@ namespace Survivor
 
         public Item GetContent()
         {
-            throw new NotImplementedException();
+            return Content;
         }
         
         public void SetContent(Item item)
         {
-            throw new NotImplementedException();
+            Content = item;
         }
         
         public int GetSpawnRange()
         {
-            throw new NotImplementedException();
+            return SpawnRange;
         }
         
         public int GetMoveCost()
         {
-            throw new NotImplementedException();
+            return MoveCost;
         }
         
         public void SetMoveCost(int cost)
         {
-            throw new NotImplementedException();
+            MoveCost = cost;
         }
         
         public virtual void Update()
         {
-            throw new NotImplementedException();
+            if (Content != null)
+            {
+                Content.Update();
+                if (Content.GetExpiry() <= 0)
+                {
+                    Content = null;
+                }
+            }
         }
     }
 }

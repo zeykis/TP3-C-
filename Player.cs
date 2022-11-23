@@ -12,7 +12,11 @@ namespace Survivor
 
         public Player(int maxEnergy, int x, int y)
         {
-            throw new NotImplementedException();
+            MaxEnergy = maxEnergy;
+            Energy = maxEnergy;
+            Thirst = false;
+            Luck = 0.5;
+            Coordinates = (x, y);
         }
         public Player()
         {
@@ -21,47 +25,83 @@ namespace Survivor
 
         public double GetLuck()
         {
-            throw new NotImplementedException();
+            return Luck;
         }
 
         public void SetLuck(double luck)
         {
-            throw new NotImplementedException();
+            Luck = luck;
         }
 
         public (int x, int y) GetCoordinates()
         {
-            throw new NotImplementedException();
+            return Coordinates;
         }
 
         public int GetEnergy()
         {
-            throw new NotImplementedException();
+            return Energy;
         }
 
         public bool GetThirst()
         {
-            throw new NotImplementedException();
+            return Thirst;
         }
 
         public virtual void Move(Game game, char key)
         {
-            throw new NotImplementedException();
+            if (key == 'w')
+            {
+                Coordinates.y--;
+            }
+            else if (key == 'a')
+            {
+                Coordinates.x--;
+            }
+            else if (key == 's')
+            {
+                Coordinates.y++;
+            }
+            else if (key == 'd')
+            {
+                Coordinates.x++;
+            }
+            
         }
 
         public bool SpendTheNight()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("You spend the night on the ground.");
+            Energy = Energy-2;
+            if (Energy>0 && Thirst == False)
+            {
+                return true;
+            }
+            Thirst = true;
+            return false;
+
         }
         
         public bool Eat(Item food)
         {
-            throw new NotImplementedException();
+            if (food == null)
+            {
+                throw new ArgumentNullException("There is no food to eat.");
+                if (Energy + food.GetEnergyAmount() > MaxEnergy)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+
+            }
         }
         
         public void Drink()
         {
-            throw new NotImplementedException();
+            Thirst = false;
         }
 
         public override string ToString()

@@ -8,12 +8,14 @@ namespace Survivor
         public Coconut(int expiry, int energyAmount)
         {
             // FIXME: this constructor should call parent constructor with multiple parameters using base(a, b, ...)
-            throw new NotImplementedException();
+            base.Expiry = expiry;
+            base.EnergyAmount = energyAmount;
+            base.IsEdible = true;
         }
         
         public override void Update()
         {
-            throw new NotImplementedException();
+            return Expiry--;
         }
         
         public override string ToString()

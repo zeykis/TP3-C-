@@ -227,52 +227,59 @@ If the player presses another key than those authorised ('w', 'a', 's', 'd' for 
 
 More about the gameplay than how to code it, remember that the character looses energy each night so do not wait for them to get to 0 energy to end the day or your character will not wake up. 
          */
-            ConsoleKeyInfo key = Console.ReadKey();
+            char key = (char)Console.Read();
             if (Player.GetEnergy() <= 0)
             {
                 return false;
             }
             else
             {
-                switch (key.Key)
+                switch (key)
                 {
-                    case ConsoleKey.W:
+                    case 'w':
                         Player.Move(0, -1);
                         break;
-                    case ConsoleKey.A:
+                    case 'a':
                         Player.Move(-1, 0);
                         break;
-                    case ConsoleKey.S:
+                    case 's':
                         Player.Move(0, 1);
                         break;
-                    case ConsoleKey.D:
+                    case 'd':
                         Player.Move(1, 0);
                         break;
-                    case ConsoleKey.I:
+                    case 'i':
                         if (Board[Player.GetCoordinates().x, Player.GetCoordinates().y] is River)
                         {
                             Player.Drink();
+                            if (Board[Player.GetCoordinates().x, Player.GetCoordinates().y].GetContent() != null)
+                            {
+                                Player.Eat( Board[Player.GetCoordinates().x, Player.GetCoordinates().y].GetContent());
+                                Board[Player.GetCoordinates().x, Player.GetCoordinates().y].SetContent(null);
+                            }
                         }
                         else
                         {
                             Player.Eat();
+                            Board[Player.GetCoordinates().x, Player.GetCoordinates().y].SetContent(null);
                         }
                         break;
-                    case ConsoleKey.N:
+                    case 'n':
                         if (Player.GetThirst() > 0)
                         {
                             Console.WriteLine("If you are still thirsty, you will die during the night. Do you still want to end the day? (y/n)");
-                            ConsoleKeyInfo key2 = Console.ReadKey();
-                            if (key2.Key == ConsoleKey.Y)
+                            char key2 = (char)Console.Read();
+                            if (key2 == 'y')
                             {
                                 return false;
                             }
-                            else if (key2.Key == ConsoleKey.N)
+                            else if (key2 == 'n')
                             {
                                 return true;
                             }
                             else
                             {
+                                Console.WriteLine("Invalid input");
                                 return true;
                             }
                         }
@@ -280,7 +287,7 @@ More about the gameplay than how to code it, remember that the character looses 
                         {
                             return false;
                         }
-                    case ConsoleKey.Q:
+                    case 'q':
                         return false;
                     default:
                         return true;
@@ -292,10 +299,18 @@ More about the gameplay than how to code it, remember that the character looses 
 
         public void Play()
         {
-            throw new NotImplementedException();
+            while (true)
+            {
+                PrintAll();
+                if (!GetAction())
+                {
+                    if (!NextDay())
+                    {
+                        break;
+                    }
+                }
+            }
         }
-
-        
 
         protected virtual Cell[,] CreateBoard(int width, int height)
         {

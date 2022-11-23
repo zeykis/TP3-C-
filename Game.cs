@@ -10,8 +10,8 @@ namespace Survivor
         protected Cell[,] Board;
         protected Player Player;
         public Game(Random random, int spawnRate, int daysLeft, int boardWidth, int boardHeight)
-        {   
-            Random = new Random();
+        {
+            Random = random;
             SpawnRate = spawnRate;
             DaysLeft = daysLeft;
             if (boardHeight < 5 || boardWidth<5)
@@ -175,7 +175,7 @@ namespace Survivor
 // Return true if the player can keep playing, false otherwise.
             if (Player.SpendTheNight())
             {
-                if (Player.GetEnergy() <= 0 || Player.GetThirst() <= 0)
+                if (Player.GetEnergy() <= 0 || Player.GetThirst())
             {
                 PrintEnd(false);
                 return false;
@@ -237,16 +237,16 @@ More about the gameplay than how to code it, remember that the character looses 
                 switch (key)
                 {
                     case 'w':
-                        Player.Move(0, -1);
+                        Player.Move(this, 'w');
                         break;
                     case 'a':
-                        Player.Move(-1, 0);
+                        Player.Move(this, 'a');
                         break;
                     case 's':
-                        Player.Move(0, 1);
+                        Player.Move(this, 's');
                         break;
                     case 'd':
-                        Player.Move(1, 0);
+                        Player.Move(this, 'd');
                         break;
                     case 'i':
                         if (Board[Player.GetCoordinates().x, Player.GetCoordinates().y] is River)
@@ -260,12 +260,12 @@ More about the gameplay than how to code it, remember that the character looses 
                         }
                         else
                         {
-                            Player.Eat();
+                            Player.Eat(Board[Player.GetCoordinates().x, Player.GetCoordinates().y].GetContent());
                             Board[Player.GetCoordinates().x, Player.GetCoordinates().y].SetContent(null);
                         }
                         break;
                     case 'n':
-                        if (Player.GetThirst() > 0)
+                        if (Player.GetThirst() == false)
                         {
                             Console.WriteLine("If you are still thirsty, you will die during the night. Do you still want to end the day? (y/n)");
                             char key2 = (char)Console.Read();

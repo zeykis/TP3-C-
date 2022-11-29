@@ -73,7 +73,7 @@ namespace Survivor
         {
             Console.WriteLine("You spend the night on the ground.");
             Energy = Energy-2;
-            if (Energy>0 && Thirst == False)
+            if (Energy>0 && Thirst == false)
             {
                 return true;
             }
@@ -97,6 +97,8 @@ namespace Survivor
                 }
 
             }
+
+            return false;
         }
         
         public void Drink()

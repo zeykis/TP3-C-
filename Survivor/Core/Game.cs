@@ -64,7 +64,6 @@ namespace Survivor
                     y2 = -y2;
                 }
             }
-            // if the cell is forest spawn a banana, if sea coconut, if river, plum
             if (Board[x+x2,y+y2].GetContent() == null)
             {
                 if (Board[x+x2,y+y2] is Forest)
@@ -95,7 +94,8 @@ namespace Survivor
                     }
                 }
             }
-         }
+            
+        }
 
         protected virtual void PrintBoard()
         {
@@ -204,29 +204,6 @@ namespace Survivor
         
         protected virtual bool GetAction()
         {
-           /*  This method is at the heart of the game, because it is used as an interface between the inputs given by the user and the actions of the player.
-You have to get the key pressed by the user.
-Whatever the action asked by the user, if the player has no energy left, you have to end the day and return false.
-'w' 'a' 's' 'd'	 	move.
-'i'	 	eat or drink depending on the cell type.
-'n'	 	sleep (to end the day).
-'q'	 	quit the game; return false.
-
-If the user chose to end the day ('n'), there is two possibilities: if the player is not thirsty, call NextDay(), otherwise display the following sentence:
-"If you are still thirsty, you will die during the night. Do you still want to end the day? (y/n)"
-As long as the user pushes another key than 'y' or 'n', ask the question again.
-If the user chooses the key 'y', end the day with a call to NextDay().
-If the user chooses the key 'n', return true.
-In a more general way, return true if the player keeps playing, otherwise return false.
-        */ 
-       /*  If the player is on a river cell and presses 'i', call the method Drink().
-Otherwise pressing 'i' will amount to calling the method Eat().
-In the case where an item would be on a River the player tries to interract with, make the player drink first then eat. If the item is eaten, do not forget to reset the Content of the cell to null.
-
-If the player presses another key than those authorised ('w', 'a', 's', 'd' for the moment but soon, more keys will be added to the list), do nothing.
-
-More about the gameplay than how to code it, remember that the character looses energy each night so do not wait for them to get to 0 energy to end the day or your character will not wake up. 
-         */
             char key = (char)Console.Read();
             if (Player.GetEnergy() <= 0)
             {

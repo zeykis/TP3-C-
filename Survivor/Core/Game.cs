@@ -206,63 +206,35 @@ namespace Survivor
             }
             else
             {
-                switch (key)
+                switch(key)
                 {
                     case 'w':
-                        Player.Move(this, 'w');
+                        Player.Move(this, 0, -1);
                         break;
                     case 'a':
-                        Player.Move(this, 'a');
+                        Player.Move(this, -1, 0);
                         break;
                     case 's':
-                        Player.Move(this, 's');
+                        Player.Move(this, 0, 1);
                         break;
                     case 'd':
-                        Player.Move(this, 'd');
+                        Player.Move(this, 1, 0);
                         break;
                     case 'i':
+                        // if cell is river,drink otherwise eat
                         if (Board[Player.GetCoordinates().x, Player.GetCoordinates().y] is River)
                         {
                             Player.Drink();
-                            if (Board[Player.GetCoordinates().x, Player.GetCoordinates().y].GetContent() != null)
-                            {
-                                Player.Eat( Board[Player.GetCoordinates().x, Player.GetCoordinates().y].GetContent());
-                                Board[Player.GetCoordinates().x, Player.GetCoordinates().y].SetContent(null);
-                            }
                         }
                         else
                         {
-                            Player.Eat(Board[Player.GetCoordinates().x, Player.GetCoordinates().y].GetContent());
-                            Board[Player.GetCoordinates().x, Player.GetCoordinates().y].SetContent(null);
+                            Player.Eat();
                         }
                         break;
-                    case 'n':
-                        if (Player.GetThirst() == false)
-                        {
-                            Console.WriteLine("If you are still thirsty, you will die during the night. Do you still want to end the day? (y/n)");
-                            char key2 = (char)Console.Read();
-                            if (key2 == 'y')
-                            {
-                                return false;
-                            }
-                            else if (key2 == 'n')
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid input");
-                                return true;
-                            }
-                        }
-                        else
-                        {
-                            return false;
-                        }
                     case 'q':
                         return false;
-                    default:
-                        return true;
+                    case 'n':
+                        return NextDay();
                 }
                 return true;
             }

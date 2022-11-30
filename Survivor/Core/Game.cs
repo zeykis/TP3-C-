@@ -42,11 +42,11 @@ namespace Survivor
             int range = Random.Next(1, Board[x, y].GetSpawnRange());
             int x2 = Random.Next(0, range);
             int y2 = x2 - range;
-            if (Random.Next(0, 2) == 1)
+            if (Random.Next(0, 2) == 0)
             {
                 x2 = -x2;
             }
-            if (Random.Next(0, 2) == 1)
+            if (Random.Next(0, 2) == 0)
             {
                 y2 = -y2;
             }
@@ -55,11 +55,11 @@ namespace Survivor
                 range = Random.Next(1, Board[x, y].GetSpawnRange());
                 x2 = Random.Next(0, range);
                 y2 = x2 - range;
-                if (Random.Next(0, 2) == 1)
+                if (Random.Next(0, 2) == 0)
                 {
                     x2 = -x2;
                 }
-                if (Random.Next(0, 2) == 1)
+                if (Random.Next(0, 2) == 0)
                 {
                     y2 = -y2;
                 }
@@ -87,14 +87,12 @@ namespace Survivor
             {
                 for (int j = 0; j < Board.GetLength(1); j++)
                 {
-                    int x = Random.Next(1, 100);
-                    if (x <= SpawnRate * Player.GetLuck())
+                    if (Random.Next(0, SpawnRate) == 0)
                     {
                         SpawnItem(i, j);
                     }
                 }
             }
-            
         }
 
         protected virtual void PrintBoard()
@@ -170,9 +168,6 @@ namespace Survivor
         
         protected virtual bool NextDay()
         {
-//             End the day of the player by calling SpendTheNight(). If there is no more days left or the player lost, end the game with a call to PrintEnd().
-// Decrease the number of days left by 1 then update the board. Finally, call the method Spawn() to generate new items.
-// Return true if the player can keep playing, false otherwise.
             if (Player.SpendTheNight())
             {
                 if (Player.GetEnergy() <= 0 || Player.GetThirst())

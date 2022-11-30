@@ -4,20 +4,21 @@ namespace Survivor
 {
     public class Tyche : God
     {
-        public Tyche(Item favourite, Item hated, int maxPatience)
+        public Tyche(Item favourite, Item hated, int maxPatience) : base(favourite, hated, maxPatience)
         {
-            // FIXME: this constructor should call parent constructor with multiple parameters using base(a, b, ...)
-            throw new NotImplementedException();
+            
         }
+
 
         public override void Miracle(Game game)
         {
-            throw new NotImplementedException();
+            Player.SetLuck(Player.GetLuck() + 0.25);
+            Patience = MaxPatience;
         }
         
         public override void Disaster(Game game)
         {
-            throw new NotImplementedException();
+            Player.SetLuck(Player.GetLuck() - 0.25);
         }
         
         public override string ToString()

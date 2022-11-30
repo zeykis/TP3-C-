@@ -11,13 +11,13 @@ namespace Survivor
         
         public override void Miracle(Game game)
         {
-            game.SpawnRate += 5;
+            game.SetSpawnRate(game.GetSpawnRate() + 5);
             Patience = MaxPatience;
         }
 
         public override void Disaster(Game game)
         {
-            game.SpawnRate -= 3;
+            game.SetSpawnRate(game.GetSpawnRate() - 3);
             Patience = MaxPatience;
         }
         

@@ -4,10 +4,9 @@ namespace Survivor
 {
     public class Poseidon : God
     {
-        public Poseidon(Item favourite, Item hated, int maxPatience)
+        public Poseidon(Item favourite, Item hated, int maxPatience) : base (favourite, hated, maxPatience)
         {
-            // FIXME: this constructor should call parent constructor with multiple parameters using base(a, b, ...)
-            throw new NotImplementedException();
+            
         }
         
         public Poseidon()
@@ -17,12 +16,21 @@ namespace Survivor
 
         public override void Miracle(Game game)
         {
-            throw new NotImplementedException();
-        }
-        
+            Random (x,y) = (new Random(),new Random());
+            if (board[x,y] is Forest)
+            {
+                board[x,y] = new River(2,3);
+                if(board[x,y].GetContent() != null)
+                {
+                    board[x,y].SetContent(null);
+                }
+            }
+            Patience = MaxPatience;      
+        }  
         public override void Disaster(Game game)
         {
-            throw new NotImplementedException();
+            game.SetDaysLeft(game.GetDaysLeft() + 1);
+            Patience = MaxPatience;
         }
         public override string ToString()
         {

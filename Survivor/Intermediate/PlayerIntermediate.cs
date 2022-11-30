@@ -6,10 +6,10 @@ namespace Survivor
         protected Item[] Inventory; 
         protected readonly int SizeInventory;
         
-        public PlayerIntermediate(int maxEnergy, int x, int y)
-        { 
-            // FIXME: this constructor should call parent constructor with multiple parameters using base(a, b, ...)
-            throw new NotImplementedException();
+        public PlayerIntermediate(int maxEnergy, int x, int y) : base(maxEnergy, x, y)
+        {
+            SizeInventory = 10;
+            Inventory = new Item[SizeInventory];
         }
         
         public PlayerIntermediate()
@@ -19,33 +19,85 @@ namespace Survivor
         
         public void SetEnergy(int energy)
         {
-            throw new NotImplementedException();
+            return Energy = energy;
         }
 
         public Item[] GetInventory()
         {
-            throw new NotImplementedException();
+            return Inventory;
         }
  
         private static int SelectItem()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Choose a slot to select (0-9) or 'q' to cancel.");
+            string input = Console.ReadLine();
+            if (input == "q")
+            {
+                return -1;
+            }
+            else if ((int)(input)<9 && (int)(input)>0)
+            {
+                return SelectItem();
+            }
+            else
+            {
+                return (int)(input);
+            }
         }
         
         public void PickUp(Cell[,] board)
         {
-            throw new NotImplementedException();
+            if (board[Coordinates.x, Coordinates.y].GetItem() == null)
+            {
+                throw new ArgumentNullException("The cell is empty.");
+            }
+            else
+            {
+                for (int i = 0; i < SizeInventory; i++)
+                {
+                    if (Inventory[i] == null)
+                    {
+                        Inventory[i] = board[Coordinates.x, Coordinates.y].GetItem();
+                        board[Coordinates.x, Coordinates.y].SetItem(null);
+                        break;
+                    }
+                }
+            }
         }
 
         public void Drop(Cell[,] board)
         {
-            throw new NotImplementedException();
+            int slot = SelectItem();
+            if (slot == -1)
+            {
+                return;
+            }
+            else
+            {
+                if (Inventory[slot] == null)
+                {
+                    return;
+                }
+                else
+                {
+                    board[Coordinates.x, Coordinates.y].SetItem(Inventory[slot]);
+                    Inventory[slot] = null;
+                }
+            }
         }
         
         public void Sacrifice(Game game, God god)
         {
-            throw new NotImplementedException();
+            int slot = SelectItem();
+            if (slot==-1 || Inventory[slot] == null)
+            {
+                return;
+            }
+            else
+            {
+                god.ReceiveOffering(game, Inventory[slot]);
+                Inventory[slot] = null;
+            }
         }
-       
     }
 }

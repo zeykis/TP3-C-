@@ -53,18 +53,22 @@ namespace Survivor
             if (key == 'w')
             {
                 Coordinates.y--;
+                Energy=this.Energy - game.GetBoard()[Coordinates.x, Coordinates.y].GetMoveCost();
             }
             else if (key == 'a')
             {
                 Coordinates.x--;
+                Energy=this.Energy - game.GetBoard()[Coordinates.x, Coordinates.y].GetMoveCost();
             }
             else if (key == 's')
             {
                 Coordinates.y++;
+                Energy=this.Energy - game.GetBoard()[Coordinates.x, Coordinates.y].GetMoveCost();
             }
             else if (key == 'd')
             {
                 Coordinates.x++;
+                Energy=this.Energy - game.GetBoard()[Coordinates.x, Coordinates.y].GetMoveCost();
             }
             
         }

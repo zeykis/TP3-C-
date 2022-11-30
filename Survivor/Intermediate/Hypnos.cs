@@ -4,11 +4,11 @@ namespace Survivor
 {
     public class Hypnos : God
     {
-        public Hypnos(Item favourite, Item hated, int maxPatience)
-        { 
-            // FIXME: this constructor should call parent constructor with multiple parameters using base(a, b, ...)
-            throw new NotImplementedException();
+        public Hypnos(Item favourite, Item hated, int maxPatience) : base(favourite, hated, maxPatience)
+        {
+
         }
+        
 
         public Hypnos()
         {
@@ -17,12 +17,14 @@ namespace Survivor
 
         public override void Miracle(Game game)
         {
-            throw new NotImplementedException();
+            PlayerIntermediate.SetEnergy(PlayerIntermediate.GetEnergy() + 5);
+            Patience = MaxPatience;   
         }
 
         public override void Disaster(Game game)
         {
-            throw new NotImplementedException();
+            PlayerIntermediate.SetEnergy(PlayerIntermediate.GetEnergy() - 3);
+            Patience = MaxPatience;
         }
         
         public override string ToString()

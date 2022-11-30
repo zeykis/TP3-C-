@@ -6,20 +6,24 @@ namespace Survivor
     {
         private bool _isDead;
         
-        public Animal(int energyAmount)
-        { 
-            // FIXME: this constructor should call parent constructor with multiple parameters using base(a, b, ...)
-            throw new NotImplementedException();
+        public Animal(int energyAmount) : base(energyAmount)
+        {
+            Expiry = 1;
+            _isDead = false;
+            isEdible = false;
+
         }
 
         public void Kill()
         {
-            throw new NotImplementedException();
+            _isDead = true;
+            isEdible = true;
+
         }
         
         public override void Update()
         {
-            throw new NotImplementedException();
+            Expiry--;
         }
 
         public override string ToString()
